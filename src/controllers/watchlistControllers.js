@@ -21,7 +21,7 @@ const addWatchlist = async (req, res) => {
 
         const { movieId, status, rating, notes} = req.body;
 
-        if(!movieId || !status || !rating) {
+        if(!movieId || !rating) {
             return res.status(400).json({message: "All menditory filled are required"});
         }
 
