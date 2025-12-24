@@ -8,10 +8,8 @@ export const validateRequest = (schema) => {
         if (!result.success) {
 
             const errorMessage = result.error.issues.map((err) => err.message)
-
-            console.log("Error message in validate zod request: ", errorMessage);
             
-            return res.status(400).json({message: errorMessage})
+            return res.status(400).json({errorMessage: errorMessage})
         }
 
         next();

@@ -55,7 +55,37 @@ const addMovie = async (req, res) => {
 }
 
 
+const deleteMovie = async (req, res) => {
+    try {
+        const id = req.params.id;
+
+        const existingMovie = await prisma.movie.findUnique({
+            where: {id: id}
+        })
+
+        if(!existingMovie) {
+            return res.status(401).json({message: "Movie doesn't exist"})
+        }
+
+        const deletedMovie = await prisma.movie.delete({
+            where: {id: id}
+        })
+
+        return res.status(200).json({
+            status: "Success",
+            message: "Movie deleted successfully",
+            data: deletedMovie
+        })
+
+
+    } catch (error) {
+        return res.status(500).json({message: "Internal server error while deleting movie"})
+    }
+}
+
+
 export {
     getAllMovies,
     addMovie,
+    deleteMovie,
 }
